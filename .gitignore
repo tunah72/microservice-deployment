@@ -1,0 +1,32 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# LaTeX build artifacts
+*.aux
+*.fdb_latexmk
+*.fls
+*.glo
+*.idx
+*.log
+*.toc
+*.synctex.gz
+*.bbl
+*.blg
+*.out
+*.lof
+*.lot
+*.bcf
+*.xml
+*.nav
+*.snm
+*.vrb
+*.dvi
+
+# Downloaded scripts / tools
+get_helm.sh

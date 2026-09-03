@@ -1,0 +1,73 @@
+\section{Quy trình triển khai và kiểm tra}
+
+Sau khi cấu hình và sử dụng Helm để cài đặt các service của ứng dụng \textit{Online Boutique} vào namespace \texttt{microservice}, hệ thống tiến hành kiểm tra trạng thái của các Pod, Service và Helm release. 
+
+Kết quả cho thấy tất cả các pod đều ở trạng thái \texttt{1/1 Running} và các Helm release đều ở trạng thái \texttt{deployed}, chứng minh quá trình cài đặt đã hoàn tất thành công.
+
+\begin{figure}[H]
+  \centering
+  \reportimg{01-kubectl-get-pods-svc.png}
+  \caption{Danh sách Pod và Service trong namespace microservice.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \reportimg{02-helm-list.png}
+  \caption{Danh sách Helm release trong namespace microservice.}
+\end{figure}
+
+Frontend được truy cập qua port-forward tại \texttt{http://127.0.0.1:8081}:
+
+\begin{verbatim}
+kubectl -n microservice port-forward service/frontend 8081:80
+\end{verbatim}
+
+\begin{figure}[H]
+  \centering
+  \reportimg{03-online-boutique-home.png}
+  \caption{Trang chủ Online Boutique.}
+\end{figure}
+
+\section{Kiểm thử luồng mua hàng}
+
+Chọn \textit{City Bike} và nhấn \textit{Add to Cart}.
+
+\begin{figure}[H]
+  \centering
+  \reportimg{04-product-city-bike.png}
+  \caption{Chọn sản phẩm và thêm vào giỏ hàng.}
+\end{figure}
+
+Giỏ hàng hiển thị một sản phẩm, tổng tiền 794.22 USD và biểu mẫu checkout.
+
+\begin{figure}[H]
+  \centering
+  \reportimg{05-cart-and-checkout.png}
+  \caption{Sản phẩm trong giỏ hàng và biểu mẫu checkout.}
+\end{figure}
+
+Sau khi nhấn \textit{Place Order}, giao diện xác nhận đơn hàng, mã theo dõi vận chuyển và tổng tiền đã thanh toán.
+
+\begin{figure}[H]
+  \centering
+  \reportimg{06-order-complete.png}
+  \caption{Xác nhận đơn hàng và thanh toán thành công.}
+\end{figure}
+
+Log hệ thống ghi nhận \texttt{PlaceOrder}, \texttt{payment went through}, \texttt{Transaction processed} và \texttt{order placed}.
+
+\begin{figure}[H]
+  \centering
+  \reportimg{07-checkout-logs.png}
+  \caption{Log xác nhận checkout và tạo đơn hàng.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \reportimg{08-payment-logs.png}
+  \caption{Log xử lý thanh toán thành công.}
+\end{figure}
+
+\section{Kết luận}
+
+Ứng dụng đã được triển khai thành công trên Minikube. Pod và service hoạt động bình thường; luồng thêm sản phẩm, checkout và thanh toán hoàn tất thành công.
